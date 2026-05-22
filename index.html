@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>犬の散歩記録アプリ【無料】お散歩日記・運動量管理</title>
+  <meta name="description" content="犬の散歩記録アプリ。散歩の時間・距離・回数を記録して愛犬の運動量を管理。犬種別の推奨運動量チェック、散歩日記として長期記録も可能。無料で使えます。">
+  <link rel="canonical" href="https://appadaycreator.github.io/dog-walk-tracker/">
+  <meta property="og:title" content="犬の散歩記録アプリ【無料】お散歩日記・運動量管理">
+  <meta property="og:description" content="散歩の時間・距離・回数を記録して愛犬の運動量を管理。犬種別の推奨運動量チェックにも対応。">
+  <meta property="og:url" content="https://appadaycreator.github.io/dog-walk-tracker/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐕</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TXQGZRF9');</script>
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","s3t9vl8h3v");</script>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427583028015858" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans JP', 'Inter', sans-serif; background: linear-gradient(135deg, #0d2000 0%, #1a3a00 50%, #0d2800 100%); min-height: 100vh; color: #f1f8e9; }
+    header { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 1rem 1.5rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    header h1 { font-size: 1.6rem; color: #fff; font-weight: 700; }
+    header p { font-size: 0.9rem; color: #aed581; margin-top: 0.3rem; }
+    main { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+    .card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .card h2 { font-size: 1.15rem; color: #fff; margin-bottom: 1rem; font-weight: 700; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.85rem; color: #aed581; font-weight: 600; }
+    .form-group input, .form-group select, .form-group textarea { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 0.65rem 0.9rem; color: #fff; font-size: 1rem; font-family: inherit; }
+    .form-group textarea { resize: vertical; min-height: 70px; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: #aed581; }
+    .form-group select option { background: #0d2000; }
+    .btn { display: block; width: 100%; padding: 0.85rem; background: linear-gradient(90deg, #558b2f, #7cb342); color: #fff; font-size: 1rem; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; margin-top: 1rem; font-family: inherit; transition: opacity 0.2s; }
+    .btn:hover { opacity: 0.9; }
+    .timer-display { text-align: center; font-size: 3rem; font-weight: 700; color: #ccff90; font-family: 'Inter', monospace; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 12px; margin: 1rem 0; }
+    .timer-btns { display: flex; gap: 1rem; }
+    .timer-btn { flex: 1; padding: 0.75rem; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+    .timer-start { background: linear-gradient(90deg, #558b2f, #7cb342); color: #fff; }
+    .timer-stop { background: linear-gradient(90deg, #b71c1c, #e53935); color: #fff; }
+    .timer-reset { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #ccc; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.8rem; margin-bottom: 1rem; }
+    .stat-box { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.8rem; text-align: center; }
+    .stat-box .sv { font-size: 1.5rem; font-weight: 700; color: #ccff90; }
+    .stat-box .sl { font-size: 0.78rem; color: #aed581; margin-top: 0.2rem; }
+    .walk-list { display: flex; flex-direction: column; gap: 0.7rem; max-height: 400px; overflow-y: auto; }
+    .walk-item { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.8rem; }
+    .walk-item-header { display: flex; justify-content: space-between; align-items: center; }
+    .walk-date { font-size: 0.85rem; color: #aed581; font-weight: 600; }
+    .walk-duration { font-size: 1rem; font-weight: 700; color: #ccff90; }
+    .walk-meta { font-size: 0.82rem; color: #ccc; margin-top: 0.3rem; }
+    .walk-note { font-size: 0.82rem; color: #aed581; margin-top: 0.3rem; font-style: italic; }
+    .delete-btn { background: none; border: none; cursor: pointer; color: #ef9a9a; font-size: 0.9rem; padding: 0.2rem; }
+    .breed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.6rem; margin-top: 0.8rem; }
+    .breed-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.8rem; }
+    .breed-name { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+    .breed-info { font-size: 0.78rem; color: #aed581; line-height: 1.5; }
+    .progress-wrap { margin-top: 0.8rem; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 0.82rem; color: #aed581; margin-bottom: 0.3rem; }
+    .progress-bg { background: rgba(255,255,255,0.1); border-radius: 6px; height: 14px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 6px; transition: width 0.5s; }
+    .progress-ok { background: linear-gradient(90deg, #558b2f, #ccff90); }
+    .progress-low { background: linear-gradient(90deg, #e65100, #ff9800); }
+    .tips-list { list-style: none; }
+    .tips-list li { padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; color: #ccc; }
+    .tips-list li::before { content: "🐾 "; }
+    footer { background: rgba(0,0,0,0.3); text-align: center; padding: 2rem 1rem; margin-top: 2rem; color: #888; font-size: 0.85rem; }
+    footer a { color: #aed581; text-decoration: none; }
+    footer .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXQGZRF9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header>
+  <h1>🐕 犬の散歩記録アプリ</h1>
+  <p>散歩時間・距離を記録して愛犬の運動量を管理</p>
+</header>
+
+<main>
+  <!-- タイマー -->
+  <section class="card">
+    <h2>⏱️ 散歩タイマー</h2>
+    <div class="timer-display" id="timerDisplay">00:00:00</div>
+    <div class="timer-btns">
+      <button class="timer-btn timer-start" onclick="startTimer()" id="startBtn">▶ 開始</button>
+      <button class="timer-btn timer-stop" onclick="stopTimer()" id="stopBtn">⏹ 停止</button>
+      <button class="timer-btn timer-reset" onclick="resetTimer()">↺ リセット</button>
+    </div>
+  </section>
+
+  <!-- 散歩記録の追加 -->
+  <section class="card">
+    <h2>📝 散歩を記録する</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>愛犬の名前</label>
+        <input type="text" id="dogName" placeholder="例：ポチ" value="">
+      </div>
+      <div class="form-group">
+        <label>散歩日時</label>
+        <input type="datetime-local" id="walkDate">
+      </div>
+      <div class="form-group">
+        <label>散歩時間（分）</label>
+        <input type="number" id="walkMinutes" value="30" min="1" step="1">
+      </div>
+      <div class="form-group">
+        <label>距離（km）</label>
+        <input type="number" id="walkDistance" value="1.5" min="0.1" step="0.1">
+      </div>
+      <div class="form-group">
+        <label>天気</label>
+        <select id="walkWeather">
+          <option value="☀️ 晴れ">☀️ 晴れ</option>
+          <option value="⛅ 曇り">⛅ 曇り</option>
+          <option value="🌧️ 雨">🌧️ 雨</option>
+          <option value="❄️ 雪">❄️ 雪</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>気分・体調</label>
+        <select id="walkMood">
+          <option value="😄 元気いっぱい">😄 元気いっぱい</option>
+          <option value="😊 普通">😊 普通</option>
+          <option value="😐 少し疲れ気味">😐 少し疲れ気味</option>
+          <option value="😴 眠そう">😴 眠そう</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group" style="margin-top:0.5rem;">
+      <label>メモ（気になること・出来事）</label>
+      <textarea id="walkNote" placeholder="今日は公園でお友達のワンちゃんと遊んだ！"></textarea>
+    </div>
+    <button class="btn" onclick="addWalk()">散歩を記録する</button>
+  </section>
+
+  <!-- 統計 -->
+  <section class="card">
+    <h2>📊 散歩統計（今週）</h2>
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-box"><div class="sv" id="weeklyWalks">0</div><div class="sl">今週の散歩回数</div></div>
+      <div class="stat-box"><div class="sv" id="weeklyMinutes">0</div><div class="sl">今週の合計時間（分）</div></div>
+      <div class="stat-box"><div class="sv" id="weeklyDistance">0</div><div class="sl">今週の合計距離（km）</div></div>
+      <div class="stat-box"><div class="sv" id="totalWalks">0</div><div class="sl">通算散歩回数</div></div>
+    </div>
+  </section>
+
+  <!-- 犬種別推奨運動量チェック -->
+  <section class="card">
+    <h2>🐾 犬種別・推奨運動量チェック</h2>
+    <div class="form-group" style="margin-bottom:1rem;">
+      <label>犬の種類を選ぶ</label>
+      <select id="breedSelect" onchange="checkBreed()">
+        <option value="">選択してください</option>
+        <option value="toy">チワワ・トイプードル（小型・超小型）</option>
+        <option value="small">ミニチュアダックスフント・シーズー（小型）</option>
+        <option value="medium">柴犬・ビーグル（中型）</option>
+        <option value="large">ラブラドール・ゴールデン（大型）</option>
+        <option value="active">ボーダーコリー・マルチーズ（超活発）</option>
+      </select>
+    </div>
+    <div id="breedAdvice" class="hidden">
+      <div class="progress-wrap" id="exerciseProgress"></div>
+    </div>
+    <div class="breed-grid">
+      <div class="breed-card"><div class="breed-name">🐩 チワワ</div><div class="breed-info">推奨: 30分/日<br>距離: 1〜2km</div></div>
+      <div class="breed-card"><div class="breed-name">🐩 トイプードル</div><div class="breed-info">推奨: 30〜45分/日<br>距離: 2〜3km</div></div>
+      <div class="breed-card"><div class="breed-name">🐕 柴犬</div><div class="breed-info">推奨: 60分/日<br>距離: 3〜5km</div></div>
+      <div class="breed-card"><div class="breed-name">🐕 ラブラドール</div><div class="breed-info">推奨: 90〜120分/日<br>距離: 5〜8km</div></div>
+      <div class="breed-card"><div class="breed-name">🐕 ゴールデン</div><div class="breed-info">推奨: 90〜120分/日<br>距離: 5〜8km</div></div>
+      <div class="breed-card"><div class="breed-name">🐕 ダックス</div><div class="breed-info">推奨: 45〜60分/日<br>距離: 2〜4km（腰注意）</div></div>
+    </div>
+  </section>
+
+  <!-- 散歩履歴 -->
+  <section class="card">
+    <h2>📋 散歩履歴</h2>
+    <div id="walkList">
+      <p style="color:#888;font-size:0.9rem;text-align:center;padding:1rem;">散歩を記録するとここに表示されます</p>
+    </div>
+    <button class="btn" onclick="clearAll()" style="background:rgba(255,100,100,0.3);margin-top:0.8rem;">全履歴をクリア</button>
+  </section>
+
+  <!-- Tips -->
+  <section class="card">
+    <h2>💡 安全な散歩のためのコツ</h2>
+    <ul class="tips-list">
+      <li>夏は朝早い時間か夕方以降に。アスファルトは60℃以上になることがある</li>
+      <li>常に水を持ち歩き、こまめに水分補給させる</li>
+      <li>リードは必ずつけ、公共の場所では引き寄せて管理する</li>
+      <li>子犬は骨格が未発達のため、1歳までは無理な長距離は避ける</li>
+      <li>老犬は短距離・ゆっくりペースで関節への負担を減らす</li>
+      <li>うんちの後始末は必ず行い、周囲への配慮を忘れずに</li>
+      <li>慣れない場所での散歩は愛犬を不安にさせることがある</li>
+      <li>散歩後は足を拭くと感染症・アレルギー予防になる</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="links">
+    <a href="https://appadaycreator.github.io/pet-breed-advisor/">犬種アドバイザー</a>
+    <a href="https://appadaycreator.github.io/pet-care-cost-simulator/">ペット費用シミュレーター</a>
+    <a href="https://appadaycreator.github.io/pet-food-advisor/">ペットフードアドバイザー</a>
+    <a href="https://appadaycreator.github.io/pet-insurance-check/">ペット保険チェック</a>
+    <a href="https://appadaycreator.github.io/bmi-body-tracker/">BMI・体型トラッカー</a>
+  </div>
+  <p>© 2025 AppADayCreator</p>
+</footer>
+
+<script>
+  let walks = JSON.parse(localStorage.getItem('dogWalks') || '[]');
+  let timerInterval = null;
+  let timerSeconds = 0;
+  let timerRunning = false;
+
+  // Timer
+  function updateTimerDisplay() {
+    const h = Math.floor(timerSeconds / 3600);
+    const m = Math.floor((timerSeconds % 3600) / 60);
+    const s = timerSeconds % 60;
+    document.getElementById('timerDisplay').textContent =
+      `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }
+
+  function startTimer() {
+    if (timerRunning) return;
+    timerRunning = true;
+    timerInterval = setInterval(() => {
+      timerSeconds++;
+      updateTimerDisplay();
+    }, 1000);
+    // Auto-fill minutes field
+    document.getElementById('startBtn').style.opacity = '0.5';
+  }
+
+  function stopTimer() {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    // Auto-fill the minutes field
+    const mins = Math.round(timerSeconds / 60);
+    if (mins > 0) document.getElementById('walkMinutes').value = mins;
+    document.getElementById('startBtn').style.opacity = '1';
+  }
+
+  function resetTimer() {
+    stopTimer();
+    timerSeconds = 0;
+    updateTimerDisplay();
+  }
+
+  // Set default datetime
+  const now = new Date();
+  document.getElementById('walkDate').value = now.toISOString().slice(0,16);
+
+  function addWalk() {
+    const name = document.getElementById('dogName').value.trim() || '愛犬';
+    const date = document.getElementById('walkDate').value;
+    const minutes = parseInt(document.getElementById('walkMinutes').value) || 0;
+    const distance = parseFloat(document.getElementById('walkDistance').value) || 0;
+    const weather = document.getElementById('walkWeather').value;
+    const mood = document.getElementById('walkMood').value;
+    const note = document.getElementById('walkNote').value.trim();
+    if (!date || !minutes) { alert('日時と散歩時間を入力してください'); return; }
+    const walk = { id: Date.now(), name, date, minutes, distance, weather, mood, note };
+    walks.unshift(walk);
+    localStorage.setItem('dogWalks', JSON.stringify(walks));
+    resetTimer();
+    renderWalkList();
+    renderStats();
+    document.getElementById('walkNote').value = '';
+  }
+
+  function deleteWalk(id) {
+    walks = walks.filter(w => w.id !== id);
+    localStorage.setItem('dogWalks', JSON.stringify(walks));
+    renderWalkList();
+    renderStats();
+  }
+
+  function clearAll() {
+    if (!confirm('全ての記録を削除しますか？')) return;
+    walks = [];
+    localStorage.removeItem('dogWalks');
+    renderWalkList();
+    renderStats();
+  }
+
+  function renderWalkList() {
+    if (!walks.length) {
+      document.getElementById('walkList').innerHTML = '<p style="color:#888;font-size:0.9rem;text-align:center;padding:1rem;">散歩を記録するとここに表示されます</p>';
+      return;
+    }
+    document.getElementById('walkList').innerHTML = `<div class="walk-list">` + walks.slice(0, 20).map(w => {
+      const d = new Date(w.date);
+      const dateStr = d.toLocaleDateString('ja-JP', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      return `<div class="walk-item">
+        <div class="walk-item-header">
+          <div><div class="walk-date">${dateStr} ${w.weather}</div></div>
+          <div style="display:flex;align-items:center;gap:0.5rem;">
+            <div class="walk-duration">${w.minutes}分 ${w.distance}km</div>
+            <button class="delete-btn" onclick="deleteWalk(${w.id})">✕</button>
+          </div>
+        </div>
+        <div class="walk-meta">🐕 ${w.name} ・ ${w.mood}</div>
+        ${w.note ? `<div class="walk-note">📝 ${w.note}</div>` : ''}
+      </div>`;
+    }).join('') + '</div>';
+  }
+
+  function renderStats() {
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    const weeklyWalks = walks.filter(w => new Date(w.date) >= weekAgo);
+    document.getElementById('weeklyWalks').textContent = weeklyWalks.length;
+    document.getElementById('weeklyMinutes').textContent = weeklyWalks.reduce((s, w) => s + w.minutes, 0);
+    document.getElementById('weeklyDistance').textContent = weeklyWalks.reduce((s, w) => s + w.distance, 0).toFixed(1);
+    document.getElementById('totalWalks').textContent = walks.length;
+  }
+
+  function checkBreed() {
+    const breedRecs = {
+      toy: { min: 30, dist: 1.5, label: '超小型犬' },
+      small: { min: 45, dist: 2.5, label: '小型犬' },
+      medium: { min: 60, dist: 4, label: '中型犬' },
+      large: { min: 105, dist: 6.5, label: '大型犬' },
+      active: { min: 120, dist: 8, label: '超活発犬種' },
+    };
+    const val = document.getElementById('breedSelect').value;
+    if (!val) return;
+    const rec = breedRecs[val];
+    const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+    const weeklyWalks = walks.filter(w => new Date(w.date) >= weekAgo);
+    const avgMin = weeklyWalks.length ? weeklyWalks.reduce((s,w) => s+w.minutes, 0) / 7 : 0;
+    const avgDist = weeklyWalks.length ? weeklyWalks.reduce((s,w) => s+w.distance, 0) / 7 : 0;
+    const pctMin = Math.min(100, Math.round(avgMin / rec.min * 100));
+    const pctDist = Math.min(100, Math.round(avgDist / rec.dist * 100));
+    const colorMin = pctMin >= 80 ? 'progress-ok' : 'progress-low';
+    const colorDist = pctDist >= 80 ? 'progress-ok' : 'progress-low';
+    document.getElementById('exerciseProgress').innerHTML = `
+      <div style="margin-bottom:0.8rem;font-size:0.9rem;color:#aed581;font-weight:600;">${rec.label}の推奨運動量との比較（過去7日間平均）</div>
+      <div class="progress-label"><span>散歩時間: ${avgMin.toFixed(0)}分/日 ÷ 推奨${rec.min}分</span><span>${pctMin}%</span></div>
+      <div class="progress-bg"><div class="progress-fill ${colorMin}" style="width:${pctMin}%"></div></div>
+      <div class="progress-label" style="margin-top:0.5rem;"><span>散歩距離: ${avgDist.toFixed(1)}km/日 ÷ 推奨${rec.dist}km</span><span>${pctDist}%</span></div>
+      <div class="progress-bg"><div class="progress-fill ${colorDist}" style="width:${pctDist}%"></div></div>
+      <div style="margin-top:0.7rem;font-size:0.85rem;color:${pctMin>=80?'#ccff90':'#ffcc80'};">
+        ${pctMin >= 80 ? '✅ 十分な運動ができています！' : '⚠️ もう少し散歩時間を増やしましょう'}
+      </div>`;
+    document.getElementById('breedAdvice').classList.remove('hidden');
+  }
+
+  renderWalkList();
+  renderStats();
+</script>
+</body>
+</html>
