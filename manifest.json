@@ -3,7 +3,7 @@
   "short_name": "散歩記録",
   "start_url": "/dog-walk-tracker/",
   "display": "standalone",
-  "background_color": "#0d2000",
+  "background_color": "#ffffff",
   "theme_color": "#7cb342",
   "scope": "/dog-walk-tracker/"
 }
