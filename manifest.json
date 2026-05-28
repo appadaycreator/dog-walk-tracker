@@ -1,1 +1,9 @@
-{"name":"犬の散歩記録アプリ","short_name":"散歩記録","start_url":"/dog-walk-tracker/","display":"standalone","background_color":"#0d2000","theme_color":"#7cb342"}
+{
+  "name": "犬の散歩記録アプリ",
+  "short_name": "散歩記録",
+  "start_url": "/dog-walk-tracker/",
+  "display": "standalone",
+  "background_color": "#0d2000",
+  "theme_color": "#7cb342",
+  "scope": "/dog-walk-tracker/"
+}
